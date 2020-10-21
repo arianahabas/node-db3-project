@@ -6,11 +6,11 @@
 
 Follow these steps to set up and work on your project:
 
-- [ ] Create a forked copy of this project.
-- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
-- [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-- [ ] Push commits: git push -u origin `<firstName-lastName>`.
+- [x] Create a forked copy of this project.
+- [x] Clone your OWN version of the repository (Not Lambda's by mistake!).
+- [x] Create a new branch: git checkout -b `<firstName-lastName>`.
+- [x] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+- [x] Push commits: git push -u origin `<firstName-lastName>`.
 
 ### Task 2: Minimum Viable Product
 
@@ -24,9 +24,35 @@ For this lab you will
 Use a graphical tool like `SQLite Studio` to open `./data/northwind.db3` and execute the following queries:
 
 -   Display the ProductName and CategoryName for all products in the database. Returns 77 records.
+
+SELECT p.ProductName, c.CategoryName
+FROM Product AS p
+JOIN Category AS c ON p.CategoryId = c.Id
+
+
 -   Display the order Id and shipper CompanyName for all orders placed before August 9 2012. Returns 429 records.
+
+(returns 329?)
+SELECT o.Id, s.CompanyName
+FROM 'Order' AS o
+JOIN Shipper AS s ON o.ShipVia = s.Id
+WHERE o.ShippedDate < '2012-08-09'
+
 -   Display the name and quantity of the products ordered in order with Id 10251. Sort by ProductName. Returns 3 records.
+
+SELECT p.ProductName, o.Quantity
+FROM OrderDetail AS o
+JOIN Product AS p ON o.ProductId = p.Id
+WHERE o.OrderId = 10251
+ORDER BY p.ProductName
+
 -   Display the OrderID, customer's Company Name and the employee's Last Name for every order. All columns should be labeled clearly. Returns 16,789 records.
+
+SELECT o.Id AS OrderID, c.CompanyName, e.LastName AS EmployeeLastName
+FROM 'Order' AS o
+JOIN Customer AS c ON o.CustomerId = c.Id
+JOIN Employee AS e ON o.EmployeeId = e.Id
+
 
 ### Database Methods
 
